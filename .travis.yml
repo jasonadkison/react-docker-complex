@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t jadkison/client-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run jadkison/client-test npm test -- --coverage
+
+after_success:
+  - docker build -t jadkison/multi-api ./api
+  - docker build -t jadkison/multi-client ./client
+  - docker build -t jadkison/multi-proxy ./proxy
+  - docker build -t jadkison/multi-worker ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push jadkison/multi-api
+  - docker push jadkison/multi-client
+  - docker push jadkison/multi-proxy
+  - docker push jadkison/multi-worker
