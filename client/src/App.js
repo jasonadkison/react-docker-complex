@@ -11,9 +11,11 @@ class App extends Component {
       <Router>
         <div className="App">
           <header className="App-header">
-            <img src={logo} className="App-logo" alt="logo" />
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
+            <img src={logo} alt="logo" height="100" />
+            <ul>
+              <li><Link className="App-link" to="/">Home</Link></li>
+              <li><Link className="App-link" to="/about">About</Link></li>
+            </ul>
           </header>
           <div>
             <Route exact path="/" component={Fib} />
