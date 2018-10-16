@@ -18,3 +18,16 @@ after_success:
   - docker push jadkison/multi-client
   - docker push jadkison/multi-proxy
   - docker push jadkison/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "react-docker-complex"
+  env: "ReactDockerComplex-env"
+  bucket_name: elasticbeanstalk-us-east-1-610263152259
+  bucket_path: "react-docker-complex"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key:
+    secure: "$AWS_SECRET_ACCESS_KEY"

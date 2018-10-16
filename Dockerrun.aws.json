@@ -1,0 +1,34 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "api",
+      "image": "jadkison/multi-api",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "client",
+      "image": "jadkison/multi-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "proxy",
+      "image": "jadkison/multi-proxy",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["api", "client"]
+    },
+    {
+      "name": "worker",
+      "image": "jadkison/multi-worker",
+      "essential": false
+    }
+  ]
+}
